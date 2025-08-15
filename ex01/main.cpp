@@ -5,50 +5,37 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoskim <hoskim@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/07 16:26:15 by hoskim            #+#    #+#             */
-/*   Updated: 2025/08/09 15:04:51 by hoskim           ###   ########seoul.kr  */
+/*   Created: 2025/08/14 21:28:11 by hoskim            #+#    #+#             */
+/*   Updated: 2025/08/14 21:28:15 by hoskim           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <string>
-#include <sstream>
 #include "PhoneBook.hpp"
 
-int	main() {
-	PhoneBook phonebook;
-	std::string	cmd;
+int main() {
+    PhoneBook   phonebook;
+    std::string command;
 
-	while (true) {
-		std::cout << "Enter command (ADD, SEARCH, EXIT): ";
-		if (!std::getline(std::cin, cmd))
-			break ;
+    std::cout << "Welcome to My Awesome PhoneBook!" << std::endl;
+    while (true) {
+        std::cout << "Enter command (ADD, SEARCH, EXIT): ";
+        // EOF (Ctrl+D) 입력을 처리하여 무한루프 방지
+        if (!(std::cin >> command)) {
+            break;
+        }
 
-		if (cmd == "ADD") {
-			Contact	c;
-			const char*	prompts[5] = {
-				"First name", "Last name", "Nickname",
-				"Phone number", "Darkest secret"
-			};
-			bool	abort = false;
-			for (int i = 0; i < 5; ++i) {
-				std::cout << prompts[i] << ": ";
-				std::string	input;
-				std::getline(std::cin, input);
-				if (input.empty()) {
-					std::cout << "Error: field cannot be empty. Aborting ADD.\n";
-					abort = true;
-					break ;
-				}
-				c.setField(i, input);
-			}
-			if (!abort && c.isComplete()) {
-				phonebook.add(c);
-				std::cout << "Contact added.\n";
-			}
-		}
-		else if (cmd == "SEARCH") {
-			phonebook.showSummary();
-		}
-	}
+        if (command == "ADD") {
+            phonebook.addContact();
+        } else if (command == "SEARCH") {
+            phonebook.searchContacts();
+        } else if (command == "EXIT") {
+            break;
+        } else {
+            std::cout << "Invalid command. Please try again." << std::endl;
+        }
+    }
+    std::cout << "Goodbye!" << std::endl;
+    return 0;
 }

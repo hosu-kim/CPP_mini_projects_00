@@ -5,42 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoskim <hoskim@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/06 22:51:11 by hoskim            #+#    #+#             */
-/*   Updated: 2025/08/14 13:01:25 by hoskim           ###   ########seoul.kr  */
+/*   Created: 2025/08/14 21:25:57 by hoskim            #+#    #+#             */
+/*   Updated: 2025/08/15 18:20:32 by hoskim           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
+/* 8월 15일 18:20 리뷰 완료 */
+
 #include "Contact.hpp"
 
-Contact::Contact()
-	: firstName(), lastName(), nickName(), phoneNumber(), darkestSecret()
-{}
-
-void Contact::setField(int fieldIndex, const std::string& value) {
-	switch (fieldIndex) {
-		case FIRST_NAME: firstName = value; break;
-		case LAST_NAME: lastName = value; break;
-		case NICK_NAME: nickName = value; break;
-		case PHONE_NUMBER: phoneNumber = value; break;
-		case DARKEST_SECRET: darkestSecret = value; break;
-		default: break;
-	}
+// Definition of Contact() constructor
+Contact::Contact() {
 }
 
-const std::string& Contact::getField(int fieldIndex) const {
-	static const std::string empty;
-	switch (fieldIndex) {
-		case FIRST_NAME: return firstName;
-		case LAST_NAME: return lastName;
-		case NICK_NAME: return nickName;
-	}
-}
+// Implementation of Setter functions
+void Contact::setFirstName(std::string str) { _firstName = str; }
+void Contact::setLastName(std::string str) { _lastName = str; }
+void Contact::setNickname(std::string str) { _nickname = str; }
+void Contact::setPhoneNumber(std::string str) { _phoneNumber = str; }
+void Contact::setDarkestSecret(std::string str) { _darkestSecret = str; }
 
-// Returns true if all field are filled.
-bool Contact::isComplete() const {
-	return !firstName.empty()
-		&& !lastName.empty()
-		&& !nickName.empty()
-		&& !phoneNumber.empty()
-		&& !darkestSecret.empty();
-}
+// Implementation of Getter functions
+std::string Contact::getFirstName() const { return _firstName; }
+std::string Contact::getLastName() const { return _lastName; }
+std::string Contact::getNickname() const { return _nickname; }
+std::string Contact::getPhoneNumber() const { return _phoneNumber; }
+std::string Contact::getDarkestSecret() const { return _darkestSecret; }

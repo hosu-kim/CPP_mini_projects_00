@@ -5,41 +5,51 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoskim <hoskim@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/06 22:44:01 by hoskim            #+#    #+#             */
-/*   Updated: 2025/08/09 20:41:41 by hoskim           ###   ########seoul.kr  */
+/*   Created: 2025/08/14 21:25:42 by hoskim            #+#    #+#             */
+/*   Updated: 2025/08/15 18:20:18 by hoskim           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONTACT_HPP
-#define CONTACT_HPP
+/* 8월 14일 리뷰 완료 */
 
-#include <string>
+#ifndef CONTACT_HPP
+# define CONTACT_HPP
+
+# include <string> // std::string
 
 class Contact {
-	// 아래의 변수들을 private에 넣는 이유는 setField()를 통해서만 접근 가능하게 하기 위함.
 	private:
-		std::string firstName;
-		std::string lastName;
-		std::string nickName;
-		std::string phoneNumber;
-		std::string darkestSecret;
+/* ============================== MEMBER VARIABLES ============================== */
+		/* Adds '_' before the member variables to distinguish them
+           from local variables for readability. */
+		std::string _firstName;
+		std::string _lastName;
+		std::string _nickname;
+		std::string _phoneNumber;
+		std::string _darkestSecret;
 
 	public:
+		/* Constructor: It's automatically called when an object is created,
+           and it sets the initial values of the member variables. If not, garbage values*/
+		/* When Contact() is executed, the constructor std::string() is also 
+		   called then it initializes member variables to "" */
 		Contact();
 
-	enum Field {
-		FIRST_NAME = 0,
-		LAST_NAME = 1,
-		NICK_NAME = 2,
-		PHONE_NUMBER = 3,
-		DARKEST_SECRET = 4
-	};
+/* ============================== SETTER FUNCTIONS ============================== */
+		// Set up contact information.
+		void setFirstName(std::string str);         // Assigns the given str to _firstName.
+		void setLastName(std::string str);          // Assigns the given str to _lastName.
+		void setNickname(std::string str);          // Assigns the given str to _nickname.
+		void setPhoneNumber(std::string str);       // Assigns the given str to _phoneNumber.
+		void setDarkestSecret(std::string str);     // Assigns the given str to _darkestSecret.
 
-	void setField(int fieldIndex, const std::string& value);
-	const std::string& getField(int fieldIndex) const;
-
-	// Checks if all fields are filled.
-	bool isComplete() const;
+/* ============================== GETTER FUNCTIONS =============================== */
+		// Get contact information.
+		std::string getFirstName() const;           // Gets str from _firstName.
+		std::string getLastName() const;            // Gets str from _lastName
+		std::string getNickname() const;            // Gets str from _nickname.
+		std::string getPhoneNumber() const;         // Gets str from _phoneNumber.
+		std::string getDarkestSecret() const;       // Gets str from _darkestSecret.
 };
 
 #endif
