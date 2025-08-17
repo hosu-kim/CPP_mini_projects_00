@@ -6,7 +6,7 @@
 /*   By: hoskim <hoskim@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 18:25:11 by hoskim            #+#    #+#             */
-/*   Updated: 2025/08/15 18:25:12 by hoskim           ###   ########seoul.kr  */
+/*   Updated: 2025/08/17 00:13:16 by hoskim           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,24 @@
 # define PHONEBOOK_HPP
 
 # include "Contact.hpp"
-# include <string> // string을 사용하므로 추가해주는 것이 안전합니다.
 
 class PhoneBook {
 private:
-    // 멤버 변수 선언 순서
-    Contact _contacts[8];
-    int     _nextIndex;
-    int     _contactCount;
+	Contact _contacts[8]; // The array of 8 contacts
+	int     _nextIndex;
+	int     _contactCount;
 
-    // <<<<< 여기!!! - 누락되었던 private 함수 선언 추가 >>>>>
-    void _printFormatted(const std::string& str) const;
-    void _displayContactDetails(int index) const;
+	/* Member functions inside private:
+	   only called by other member functions and
+	   cannot be called externally. */
+	void _printItemFormatted(const std::string& str) const;
+	void _displayContactDetails(int index) const;
 
 public:
-    PhoneBook();
-    ~PhoneBook();
+	PhoneBook();
 
-    void addContact();
-    void searchContacts() const;
+	void addContact();
+	void searchContacts() const;
 };
 
 #endif

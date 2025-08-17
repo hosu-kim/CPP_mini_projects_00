@@ -6,7 +6,7 @@
 /*   By: hoskim <hoskim@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 21:25:42 by hoskim            #+#    #+#             */
-/*   Updated: 2025/08/15 18:20:18 by hoskim           ###   ########seoul.kr  */
+/*   Updated: 2025/08/15 18:39:17 by hoskim           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ class Contact {
 		std::string _darkestSecret;
 
 	public:
-		/* Constructor: It's automatically called when an object is created,
-           and it sets the initial values of the member variables. If not, garbage values*/
-		/* When Contact() is executed, the constructor std::string() is also 
-		   called then it initializes member variables to "" */
+		/* 1. Constructor: It's automatically called when an object is created,
+		      and it sets the initial values of the member variables. If not, garbage values*/
+		/* 2. When Contact() is executed, the constructor std::string() is also 
+		      called then it initializes member variables to "" */
 		Contact();
 
 /* ============================== SETTER FUNCTIONS ============================== */
@@ -45,6 +45,7 @@ class Contact {
 
 /* ============================== GETTER FUNCTIONS =============================== */
 		// Get contact information.
+		// func() const: read only
 		std::string getFirstName() const;           // Gets str from _firstName.
 		std::string getLastName() const;            // Gets str from _lastName
 		std::string getNickname() const;            // Gets str from _nickname.
