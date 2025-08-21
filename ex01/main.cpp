@@ -6,7 +6,7 @@
 /*   By: hoskim <hoskim@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 21:28:11 by hoskim            #+#    #+#             */
-/*   Updated: 2025/08/16 00:26:22 by hoskim           ###   ########seoul.kr  */
+/*   Updated: 2025/08/21 18:25:48 by hoskim           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 #include <string>
 #include "PhoneBook.hpp"
 
+/**
+ * @brief The main function and entry point of the PhoneBook application.
+ * @details This function initializes a PhoneBook object and enters and infinite
+ *          loop to process user commands. It handles "ADD", "SEARCH" and "EXIT"
+ *          commands by calling the corresponding methods. The loop terminates
+ *          on "EXIT" or when an End-Of-File (EOF) signal is received.
+ * @return Returns 0 on successful execution.
+ */
 int main() {
 	PhoneBook   phonebook;
 	std::string command;
