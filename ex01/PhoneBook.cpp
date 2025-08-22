@@ -6,7 +6,7 @@
 /*   By: hoskim <hoskim@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 00:05:27 by hoskim            #+#    #+#             */
-/*   Updated: 2025/08/21 18:21:31 by hoskim           ###   ########seoul.kr  */
+/*   Updated: 2025/08/22 14:26:58 by hoskim           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 /**
  * @brief Constructs a new PhoneBook object.
+ * 
  * @details Initializes the phonebook's internal state.
  *          1. `_contactCount` and `_nextIndex` are explicitly set to 0.
  *          2. The `_contacts` array is also initialized, with each `Contact`'s `std::string` members
@@ -28,6 +29,7 @@ PhoneBook::PhoneBook() : _nextIndex(0), _contactCount(0) {
 
 /**
  * @brief Formats and prints a string to fit within a 10-character column.
+ * 
  * @param str The string to be formatted and printed.
  * @details If the string is longer than 10 characters, it's truncated to 9 characters
  *          followed by a period ('.'). Otherwise, the string is left-aligned and
@@ -35,13 +37,18 @@ PhoneBook::PhoneBook() : _nextIndex(0), _contactCount(0) {
  * @note This is a const method, meaning it does not modify the object's state.
  *       Format: "str       "
  */
-void PhoneBook::_printItemFormatted(const std::string& str) const {
-	if (str.length() > 10) {
+void PhoneBook::_printItemFormatted(const std::string& str) const
+{
+	if (str.length() > 10)
+	{
 		// substr(): Extract a str from the original str.
 		//               vvvvvv
 		std::cout << str.substr(0, 9) << ".";
-	} else {
-		// std::left, setw(): Sets the width for the next output item (str) to 10 for left-alignment,
+	}
+	else
+	{
+		// std::left, setw(10): Sets the field width to 10. If the output is shorter,
+		// it's padded with whitespaces to meet the width.
 		// e.g., "str       " => 10 chars including str
 		//                vvvv         vvvv
 		std::cout << std::left << std::setw(10) << str;
@@ -63,9 +70,11 @@ void PhoneBook::_printItemFormatted(const std::string& str) const {
  *               Darkest Secret : (Darkest secret)
  *               -------------------------------------------
  */
-void PhoneBook::_displayContactDetails(int index) const {
-	// Error handling when a wrong index is given. (Validation)
-	if (index < 0 || index >= _contactCount) {
+void PhoneBook::_displayContactDetails(int index) const
+{
+	// Validation: Error handling when a wrong index is given.
+	if (index < 0 || index >= _contactCount)
+	{
 		/* std::endl: Inserts a newline and flushes the stream (output buffer),
 		   ensuring the message is displayed immediately.
 		                                        vvvvvvvvv*/
@@ -73,6 +82,7 @@ void PhoneBook::_displayContactDetails(int index) const {
 		return; // == return (void);
 	}
 
+	// Formatting
 	std::cout << "-------------------------------------------" << std::endl;
 	std::cout << "Index          : " << index << std::endl;
 	std::cout << "First Name     : " << this->_contacts[index].getFirstName() << std::endl;
@@ -91,22 +101,25 @@ void PhoneBook::_displayContactDetails(int index) const {
  *          4. Input fields cannot be empty.
  * @note The user can cancel the process at any time by sending an EOF signal (e.g., Ctrl+D).
  */
-void PhoneBook::addContact() {
+void PhoneBook::addContact()
+{
 	Contact     newContact;
 	std::string input;
 
-	/* std::cin.ignore(): it reads only the word (e.g., "ADD") in the main loop and
-	   leaves the trailing newline character ('\n') in the input buffer.
-	   This `ignore()` call is to remove that newline, preventing the following `getline`
-	   from immediately reading an empty line.
-	vvvvvvvvvvvvvvvvv */
+	// std::cin.ignore(void): Extracts and discards a character from the input buffer.
+	// This is needed because the `std::cin >> command` in main() leaves a newline
+	// character ('\n') in the buffer when user presses enter ('\n').
+	// Without this line, the next `std::getline` would instantly read that newline
+	// and think the user entered an empty string.
+	//   vvvvvvvvvvvv
 	std::cin.ignore();
 
 	// vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv ADDING FIRST NAME vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 	/* getline(): std::cin >> finishes accepting user input when it meets spaces, tabs, enters.
 	   To prevent the problem, it is used.           vvvvvvv */
-	while (std::cout << "Enter first name: " && std::getline(std::cin, input) && input.empty()) {
-	// empty(): Checks if a string is empty.                                           ^^^^^^^
+	while (std::cout << "Enter first name: " && std::getline(std::cin, input) && input.empty())
+	{
+	// empty(): Returns true if a string is empty.                                     ^^^^^^^
 	/* std::cin.eof(): Checks if the user signaled the End-Of-File (e.g., via Ctrl+D),
 	   allowing the input process to be cancelled gracefully.
 	        vvvvvvvvvvvvvv*/
@@ -115,34 +128,43 @@ void PhoneBook::addContact() {
 	}
 	if (std::cin.eof()) return;
 	newContact.setFirstName(input);
+
 	// vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv ADDING LAST NAME vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-	while (std::cout << "Enter last name: " && std::getline(std::cin, input) && input.empty()) {
+	while (std::cout << "Enter last name: " && std::getline(std::cin, input) && input.empty())
+	{
 		if (std::cin.eof()) return;
 		std::cout << "Field cannot be empty. Please try again." << std::endl;
 	}
 	if (std::cin.eof()) return;
 	newContact.setLastName(input);
+
 	// vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv ADDING NICKNAME vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-	while (std::cout << "Enter nickname: " && std::getline(std::cin, input) && input.empty()) {
+	while (std::cout << "Enter nickname: " && std::getline(std::cin, input) && input.empty())
+	{
 		if (std::cin.eof()) return;
 		std::cout << "Field cannot be empty. Please try again." << std::endl;
 	}
 	if (std::cin.eof()) return;
 	newContact.setNickname(input);
+
 	// vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv ADDING PHONE NUMBER vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-	while (std::cout << "Enter phone number: " && std::getline(std::cin, input) && input.empty()) {
+	while (std::cout << "Enter phone number: " && std::getline(std::cin, input) && input.empty())
+	{
 		if (std::cin.eof()) return;
 		std::cout << "Field cannot be empty. Please try again." << std::endl;
 	}
 	if (std::cin.eof()) return;
 	newContact.setPhoneNumber(input);
+
 	// vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv ADDING DARKEST SECRET vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-	while (std::cout << "Enter darkest secret: " && std::getline(std::cin, input) && input.empty()) {
+	while (std::cout << "Enter darkest secret: " && std::getline(std::cin, input) && input.empty())
+	{
 		if (std::cin.eof()) return;
 		std::cout << "Field cannot be empty. Please try again." << std::endl;
 	}
 	if (std::cin.eof()) return;
 	newContact.setDarkestSecret(input);
+
 	// vvvvvvvvvvvvvvvvvvvv APPEND THE INFORMATION INTO AN INDEX OF THE CONTACTS vvvvvvvvvvvvvvvvvvvv
 	this->_contacts[this->_nextIndex] = newContact;
 	this->_nextIndex = (this->_nextIndex + 1) % 8;

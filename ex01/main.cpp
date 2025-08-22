@@ -6,7 +6,7 @@
 /*   By: hoskim <hoskim@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 21:28:11 by hoskim            #+#    #+#             */
-/*   Updated: 2025/08/21 18:25:48 by hoskim           ###   ########seoul.kr  */
+/*   Updated: 2025/08/22 14:37:32 by hoskim           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ int main() {
 			std::cout << "Invalid command. Please try again." << std::endl;
 		}
 	}
-	std::cout << "Goodbye!" << std::endl;
+	std::cout << "Goodbye! Na shledanou! Do widzenia! 안녕히 가세요! いってらっしゃいませ!" << std::endl;
 	return 0;
 }
